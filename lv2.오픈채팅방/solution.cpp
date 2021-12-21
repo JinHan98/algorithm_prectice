@@ -57,6 +57,8 @@ vector<string> solution(vector<string> record) {
     return answer;
 }
 
+
+//시간복잡도 생각
 int main(){
     vector<string> a;
     a.push_back("Enter uid1234 Muzi");
