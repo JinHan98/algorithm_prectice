@@ -5,54 +5,38 @@ using namespace std;
 
 vector<string> solution(vector<string> record) {
     vector<string> answer;
-    vector<string> act;
     vector<string> uid;
     vector<string> name;
     for(int i=0;i<record.size();i++){
-        int stack=0;
-        int start=0;
-        for(int j=0;j<record[i].size();j++){
-            if(record[i][j]==' '){
-                if(stack==0){
-                    act.push_back(record[i].substr(0,j));
-                    if(act[i]=="Leave"){
-                        uid.push_back(record[i].substr(j,10));
-                        for(int k=0;k<i;k++){
-                            if(uid[i]==uid[k]){
-                                name.push_back(name[k]);
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    stack++;
-                    start=j;
-                    continue;
-                }
-                if(stack==1){
-                    uid.push_back(record[i].substr(start,j-start));
-                    name.push_back(record[i].substr(j+1,record.size()-j));
+        if(record[i][0]=='E'){
+            answer.push_back("님이 들어왔습니다.");
+            for(int j=0;j<uid.size();j++){
+                if(record[i].substr(9,4)==uid[j])
+                    name[j]=record[i].substr(14);
+            }
+            name.push_back(record[i].substr(14));
+        }
+        else if(record[i][0]=='L'){
+            answer.push_back("님이 나갔습니다.");
+            for(int j=0;j<uid.size();j++){
+                if(record[i].substr(9,4)==uid[j]){
+                    name.push_back(name[j]);
                     break;
                 }
             }
         }
-    }
-    for(int i=0;i<act.size();i++){
-        if(act[i]=="Change"||act[i]=="Enter"){
-            for(int j=0;j<i;j++){
-                if(uid[i]==uid[j]){
-                    name[j]=name[i];
+        else{
+            for(int j=0;j<uid.size();j++){
+                if(record[i].substr(10,4)==uid[j]){
+                    name[j]=record[i].substr(15);
                 }
             }
-        }
-    }
-    for(int i=0;i<act.size();i++){
-        if(act[i]=="Change")
             continue;
-        if(act[i]=="Enter")
-            answer.push_back(name[i]+"님이 들어왔습니다.");
-        if(act[i]=="Leave")
-            answer.push_back(name[i]+"님이 나갔습니다.");
+        }
+        uid.push_back(record[i].substr(9,4));
+    }
+    for(int i=0;i<name.size();i++){
+        answer[i]=name[i]+answer[i];
     }
     return answer;
 }

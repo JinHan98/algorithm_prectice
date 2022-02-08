@@ -4,34 +4,18 @@
 #include <iostream>
 using namespace std;
 
-vector<string> make(string a){
-    vector<string> temp(a.size());
-    int index=0;
-    for(int i=0;i<a.size();i++){
-        if(a[i]>='a'&& a[i]<123){
-            if(temp[0]==""){
-                temp[0].push_back(a[i]);
-                continue;
+vector<string> make(string a){// 방식을 바꿔야함 하나씩 비교해서 넣는게 아니라 2개씩 확인해야함 알파벳이 아닌문자들은 순서쌍에서 무조건 제외해야함
+    vector<string> temp;
+    for(int i=0;i<a.size()-1;i++){
+        if((a[i]>64&&a[i]<91)||(a[i]>96&&a[i]<123)){
+            if((a[i+1]>64&&a[i+1]<91)||(a[i+1]>96&&a[i+1]<123)){
+                string b;
+                b.push_back((a[i] > 96) ? a[i]-32 : a[i]);
+                b.push_back((a[i+1] > 96) ? a[i+1]-32 : a[i+1]);
+                temp.push_back(b);
             }
-            temp[index].push_back(a[i]);
-            temp[index+1].push_back(a[i]);
-            index++;
-            continue;
-        }
-            
-        if(a[i]>='A'&&a[i]<='Z'){
-            if(temp[0]==""){
-                temp[0].push_back(a[i]+32);
-                continue;
-            }
-            temp[index].push_back(a[i]+32);
-            temp[index+1].push_back(a[i]+32);
-            index++;
-            continue;
         }
     }
-    for(;index<a.size();index++)
-        temp.pop_back();
     return temp;
 }
 
@@ -40,12 +24,12 @@ int solution(string str1, string str2) {
     int union_1=0;
     int intersection=0;
     vector<string>::iterator point;
-    if(str1.empty()||str2.empty())
-        return 1;
     vector<string> a=make(str1);
     vector<string> b=make(str2);
-    sort(a.begin(),b.begin());
+    sort(a.begin(),a.end());
     sort(b.begin(),b.end());
+    if(a.size()==0&&b.size()==0)
+        return 65536;
     vector<string> a_union_b(a.size()+b.size());
     point=set_union(a.begin(),a.end(),b.begin(),b.end(),a_union_b.begin());
     a_union_b.erase(point,a_union_b.end());
@@ -57,8 +41,8 @@ int solution(string str1, string str2) {
 }
 
 int main(){
-    string a="FRANCE";
-    string b="french";
+    string a="aa1+aa2";
+    string b="AAAA12";
     int c=solution(a,b);
     cout<<c<<endl;
 }

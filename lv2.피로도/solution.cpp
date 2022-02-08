@@ -5,20 +5,22 @@
 
 using namespace std;
 
-int K;
-int solution(int k, vector<vector<int> > dungeons) {
-    int answer = -1;
-    K=k;
-    dungeons.erase(remove_if(dungeons.begin(),dungeons.end(),is_can),dungeons.end());
-    
-    return answer;
+bool cmp(vector<int> a, vector<int>b){
+    return a[1]<b[1];
 }
 
-
-
-bool is_can(int x){
-    if(x>K)
-        return true;
-    else
-        return false;
+int solution(int k, vector<vector<int> > dungeons) {
+    int answer = 0;
+    sort(dungeons.begin(),dungeons.end(),greater<int>());
+    sort(dungeons.begin(),dungeons.end(),cmp);
+    for(int i=0;i<dungeons.size();i++){
+        if(k<dungeons[i][0]){//던전 못돔
+            continue;
+        }
+        else{
+            k-=dungeons[i][1];
+            answer++;
+        }
+    }
+    return answer;
 }
