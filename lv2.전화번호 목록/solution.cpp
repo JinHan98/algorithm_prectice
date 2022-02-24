@@ -14,13 +14,7 @@ bool solution(vector<string> phone_book) {
             continue;
         }
         else{
-            for(int j=0;j<phone_book[i].size();j++){
-                if(phone_book[i][j]!=phone_book[i+1][j])
-                    break;
-                else
-                    temp++;
-            }
-            if(temp==phone_book[i].size()){
+            if(phone_book[i]==phone_book[i+1].substr(0,phone_book[i].size())){
                 return false;
             }
         }

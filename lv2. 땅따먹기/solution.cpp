@@ -1,35 +1,19 @@
 #include <iostream>
 #include <vector>
-#include <queue>
+#include <algorithm>
+
 using namespace std;
 
 int solution(vector<vector<int> > land)
 {
-    int answer = 0;
-    priority_queue<int> temp;
-    int each_case=0;
-    int now_index;
-    for(int i=0;i<land[0].size();i++){
-        each_case=land[0][i];
-        now_index=i;
-        for(int j=1;j<land.size();j++){
-            int big=0;
-            int max_index;
-            for(int k=0;k<land[0].size();k++){
-                if(k!=now_index){
-                    if(big<land[j][k]){
-                        big=land[j][k];
-                        max_index=k;
-                    }
-                }
-            }
-            each_case=each_case+land[j][max_index];
-            now_index=max_index;
+    int answer=0;
+    vector<int> max_index;
+    for(int i=0;i<land.size();i++){
+        int max=0;
+        for(int j=0;j<4;j++){
+
         }
-        temp.push(each_case);
-        each_case=0;
     }
-    answer=temp.top();
     return answer;
 }
 //[[1,2,3,5],[5,6,7,8],[4,3,2,1]]

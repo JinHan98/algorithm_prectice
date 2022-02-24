@@ -5,19 +5,15 @@ using namespace std;
 
 vector<string> solution(vector<string> files) {
     vector<string> answer;
-    vector<string> small_let(files.size());
-    vector<int> num;
-    int start=0;
-    int end=0;
+    vector<pair<string,int> >a;
     for(int i=0;i<files.size();i++){
+        pair<string,int> temp;
         for(int j=0;j<files[i].size();j++){
-            if(files[i][j]>64&&files[i][j]<91){
-                small_let[i].push_back(files[i][j]+32);
-                continue;
+            if(files[i][j]>='A'&&files[i][j]<='Z'){
+                files[i][j]+=32;
             }
-            small_let[i].push_back(files[i][j]+32);
         }
+        temp.first=files
     }
-    sort(files.begin(),files.end());
     return answer;
 }
